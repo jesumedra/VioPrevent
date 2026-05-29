@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './App.css';
+import '../App.css';
 
 function Login({ onLogin }) {
   // Estados para guardar el correo y la contraseña

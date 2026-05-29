@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import './App.css';
-import AddStudentModal from './AddStudentModal'; // Importamos el modal
+import '../App.css';
+import AddStudentModal from '../componentes/AddStudentModal'; // Importamos el modal
 
 function Alumnos({ salones }) {
   const [isModalOpen, setIsModalOpen] = useState(false);

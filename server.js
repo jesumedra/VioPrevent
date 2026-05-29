@@ -21,7 +21,7 @@ const db = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "",
-  database: "vioprevent"
+  database: "viopreventfn"
 });
 
 // 5. Conectar a la base de datos
@@ -30,7 +30,7 @@ db.connect(err => {
     console.error('Error al conectar a la base de datos:', err);
     return;
   }
-  console.log('Conectado exitosamente a la base de datos MySQL "vioprevent"');
+  console.log('Conectado exitosamente a la base de datos MySQL "viopreventfn"');
 });
 
 // 6. Definición de las rutas de la API (los "endpoints")

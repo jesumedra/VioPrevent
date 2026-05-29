@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import './App.css';
+import '../App.css';
 // Aún no hemos creado este modal, pero lo haremos en el siguiente paso.
-import AddReportModal from './AddReportModal'; 
+import AddReportModal from '../componentes/AddReportModal'; 
 
 // El componente ahora recibe todo lo que necesita como props
 function Reportes({ alumnos, reportes, onAddReport, onDeleteReport }) {

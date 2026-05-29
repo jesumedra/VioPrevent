@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './App.css';
+import '../App.css';
 
 // El modal ahora recibe la lista de alumnos como prop
 function AddReportModal({ onClose, onAddReport, alumnos }) {

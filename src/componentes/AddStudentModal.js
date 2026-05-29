@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
+import '../App.css';
 
 // El modal ahora es más inteligente: puede crear o editar.
 function AddStudentModal({ onClose, onAddStudent, onUpdateStudent, studentToEdit, selectedGrupo }) {

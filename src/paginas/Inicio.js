@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import '../App.css';
 
 // El componente recibe todos los datos que necesita para los resúmenes
 function Inicio({ alumnos, salones, reportes }) {

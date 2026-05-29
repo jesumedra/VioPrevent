@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
-import Login from './Login';
-import Dashboard from './Dasboard'; // Asegúrate de que el nombre del archivo sea correcto
+import Login from './paginas/Login';
+import Dashboard from './paginas/Dasboard';
 
 function App() {
   // Estado para saber si el usuario ha iniciado sesión

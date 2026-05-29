@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './App.css'; // Usaremos el mismo archivo de estilos
+import '../App.css'; // Usaremos el mismo archivo de estilos
 import Alumnos from './Alumnos'; // Importamos el nuevo componente
 import Reportes from './Reportes'; // Importamos el componente de Reportes
 import Salones from './Salones'; // Importamos el componente de Salones

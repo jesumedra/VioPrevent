@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import './App.css';
-import AddSalonModal from './AddSalonModal';
+import '../App.css';
+import AddSalonModal from '../componentes/AddSalonModal';
 
 function Salones({ salones, onAddSalon, onDeleteSalon, onUpdateSalon }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
