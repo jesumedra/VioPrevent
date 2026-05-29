@@ -1,0 +1,537 @@
+:root {
+  /* Paleta de Colores Principal (Verde) */
+  --primary-green: #28a745; /* Verde principal */
+  --primary-green-dark: #218838; /* Verde oscuro para hovers */
+  --bright-green: #48bb78; /* Verde brillante para elementos activos */
+  --dark-green-bg: #1A3636; /* Fondo de sidebar verde muy oscuro */
+  --dark-green-header: #2A4C4C; /* Cabecera de sidebar un poco más clara */
+
+  /* Colores de Fondo */
+  --background-light-gray: #f0f2f5;
+  --background-content: #f7f9fc;
+  --background-white: #ffffff;
+
+  /* Colores de Texto */
+  --text-primary: #333;
+  --text-secondary: #555;
+  --text-tertiary: #666;
+  --text-light: #fff;
+  --text-link: var(--primary-green);
+  --text-sidebar: #a6adb4;
+
+  /* Colores de Estado */
+  --status-success-bg: #f6ffed;
+  --status-success-text: #52c41a;
+  --status-warning-bg: #fffbe6;
+  --status-warning-text: #faad14;
+  --status-error-bg: #fff1f0;
+  --status-error-text: #f5222d;
+  --status-info-bg: #e9f7ea; /* Verde claro para 'info' */
+  --status-info-text: var(--primary-green);
+
+  /* Colores de Bordes y Sombras */
+  --border-color-light: #f0f0f0;
+  --border-color-base: #d9d9d9;
+  --border-color-modal: #ccc;
+  --box-shadow-base: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --box-shadow-light: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --box-shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.1);
+  --modal-overlay-bg: rgba(0, 0, 0, 0.6);
+  --input-focus-shadow: 0 0 0 2px rgba(40, 167, 69, 0.2); /* Sombra de foco verde */
+
+  /* Colores de Botones y Acciones */
+  --button-danger-bg: #f5222d;
+  --button-danger-hover-bg: #cf1322;
+  --button-secondary-bg: #f0f0f0;
+  --button-secondary-border: #ccc;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background-light-gray); /* Fondo gris claro como en la imagen */
+}
+
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+}
+
+/* Contenedor del Login */
+.login-container {
+  padding: 40px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.login-header h1 {
+  font-size: 28px;
+  color: var(--primary-green); /* Azul oscuro del diseño */
+  margin: 0;
+  margin-left: 10px;
+}
+
+/* Estilos del Formulario */
+.login-form input {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+.login-form input:focus {
+  border-color: var(--primary-green);
+  outline: none;
+}
+
+.login-button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  background-color: var(--primary-green);
+  color: var(--text-light);
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.login-button:hover {
+  background-color: var(--primary-green-dark); /* Azul un poco más oscuro */
+}
+
+/* Enlaces */
+.login-links {
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.login-links a {
+  color: #005a9c;
+  text-decoration: none;
+}
+
+.login-links a:hover {
+  text-decoration: underline;
+}
+
+/* Estilos del Panel de Control (Dashboard) */
+.dashboard-container {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  background-color: #f7f9fc;
+}
+
+/* Barra Lateral */
+.sidebar {
+  width: 260px;
+  background-color: var(--dark-green-bg); /* Azul muy oscuro para la barra lateral */
+  color: var(--text-light);
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-header {
+  padding: 20px;
+  text-align: center;
+  background-color: var(--dark-green-header); /* Un poco más oscuro que el fondo de la barra */
+}
+
+.sidebar-header h2 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.sidebar-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.sidebar-nav li a {
+  display: block;
+  padding: 15px 20px;
+  color: #a6adb4;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.sidebar-nav li a:hover {
+  background-color: var(--bright-green); /* Azul brillante para el hover */
+  color: var(--text-light);
+}
+
+.sidebar-nav li.active a {
+  background-color: var(--bright-green);
+  color: var(--text-light);
+  font-weight: bold;
+}
+
+/* Contenido Principal del Dashboard */
+.main-content-dashboard {
+  flex-grow: 1; /* Ocupa el resto del espacio */
+  display: flex;
+  flex-direction: column;
+}
+
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background-color: #fff;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.header-search input {
+  border: 1px solid #d9d9d9;
+  border-radius: 15px;
+  padding: 8px 15px;
+  min-width: 300px;
+}
+
+.header-user {
+  display: flex;
+  align-items: center;
+}
+
+.header-user span {
+  margin-right: 20px;
+  font-weight: 500;
+}
+
+.logout-button {
+  background-color: #f5222d;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background-color: #cf1322;
+}
+
+.content-area {
+  padding: 30px;
+  flex-grow: 1;
+  overflow-y: auto; /* Permite scroll si el contenido es largo */
+}
+
+/* Estilos de la Sección de Alumnos */
+.alumnos-container {
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.alumnos-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.alumnos-header h2 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.add-student-button {
+  background-color: var(--primary-green);
+  color: var(--text-light);
+  border: none;
+  padding: 10px 18px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-student-button:hover {
+  background-color: var(--primary-green-dark);
+}
+
+/* --- Estilos para las Pestañas de Grupos --- */
+.grupos-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 16px;
+}
+
+.grupo-tab {
+  padding: 8px 16px;
+  border: 1px solid #cbd5e0;
+  background-color: #f8fafc;
+  color: #4a5568;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+}
+
+.grupo-tab:hover {
+  background-color: #edf2f7;
+  border-color: #a0aec0;
+}
+
+.grupo-tab.active {
+  background-color: #2c5282; /* Un azul oscuro, similar al de la barra lateral */
+  color: #ffffff;
+  border-color: #2c5282;
+  font-weight: 600;
+}
+
+/* Estilos de la Tabla de Alumnos */
+.alumnos-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.alumnos-table th, .alumnos-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.alumnos-table thead th {
+  background-color: #f7f9fc;
+  font-weight: 600;
+  color: #555;
+}
+
+.alumnos-table tbody tr:hover {
+  background-color: #f7f9fc;
+}
+
+/* Insignias de Estado */
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.status-activo {
+  background-color: #e6f7ff;
+  color: #1890ff;
+}
+
+.status-inactivo {
+  background-color: #fff1f0;
+  color: #f5222d;
+}
+
+/* Botones de Acciones en la Tabla */
+.actions-cell {
+  display: flex;
+  gap: 10px;
+}
+
+.action-button {
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.view-button {
+  background-color: #f0f0f0;
+  color: #555;
+}
+
+.edit-button {
+  background-color: #e6f7ff;
+  color: #1890ff;
+}
+
+.delete-button {
+  background-color: #fff1f0;
+  color: #f5222d;
+}
+
+/* Estilos para los estados de los reportes */
+.status-pendiente {
+  background-color: #fffbe6;
+  color: #faad14;
+}
+
+.status-resuelto {
+  background-color: #f6ffed;
+  color: #52c41a;
+}
+
+.status-en-revisión {
+  background-color: #e6f7ff;
+  color: #1890ff;
+}
+
+/* Estilos para las tarjetas de estadísticas del Inicio */
+.stats-cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.stat-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-card-title {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.stat-card-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #333;
+}
+
+/* Estilos para el Modal de Añadir Alumno */
+.modal-overlay {
+  position: fixed; /* Se posiciona sobre toda la página */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro semitransparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Asegura que esté por encima de todo */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.2s ease-out;
+}
+
+.modal-content h2 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  font-size: 1.75rem;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #555;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #1890ff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.button-primary {
+  background-color: #005a9c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.button-secondary {
+  background-color: #f0f0f0;
+  color: #555;
+  border: 1px solid #ccc;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
