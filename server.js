@@ -146,7 +146,6 @@ app.get('/api/salones', (req, res) => {
       return {
         id: tableName, // Usamos el nombre de la tabla como ID único
         grupo: grupoNumber,
-        profesor: 'N/A', // No podemos saber el profesor solo con el nombre de la tabla
         alumnos: 'N/A',  // Necesitaríamos otra consulta para contar
       };
     });
@@ -157,8 +156,135 @@ app.get('/api/salones', (req, res) => {
 // --- API para Reportes ---
 // GET: Obtener todos los reportes
 app.get('/api/reportes', (req, res) => {
-  // Como no hay una tabla de reportes, devolvemos una lista vacía para evitar errores.
-  res.json([]);
+  const sql = "SELECT * FROM reportes";
+  db.query(sql, (err, results) => {
+    if (err) {
+      res.status(500).send('Error al obtener los reportes');
+      return;
+    }
+    res.json(results);
+  });
+});
+
+// Nuevas rutas para obtener datos relacionados con un reporte específico
+app.get('/api/reportes/:id/testigos', (req, res) => {
+  const { id } = req.params;
+  const sql = "SELECT * FROM testigos WHERE id_reporte = ?";
+  db.query(sql, [id], (err, results) => {
+    if (err) {
+      res.status(500).send('Error al obtener los testigos del reporte');
+      return;
+    }
+    res.json(results);
+  });
+});
+
+app.get('/api/reportes/:id/victimas', (req, res) => {
+  const { id } = req.params;
+  const sql = "SELECT * FROM victimas WHERE id_reporte = ?";
+  db.query(sql, [id], (err, results) => {
+    if (err) {
+      res.status(500).send('Error al obtener las víctimas del reporte');
+      return;
+    }
+    res.json(results);
+  });
+});
+
+app.get('/api/reportes/:id/victimarios', (req, res) => {
+  const { id } = req.params;
+  const sql = "SELECT * FROM victimarios WHERE id_reporte = ?";
+  db.query(sql, [id], (err, results) => {
+    if (err) {
+      res.status(500).send('Error al obtener los victimarios del reporte');
+      return;
+    }
+    res.json(results);
+  });
+});
+
+// Ruta para obtener orientadores
+app.get('/api/orientadores', (req, res) => {
+  const sql = "SELECT * FROM orientadores";
+  db.query(sql, (err, results) => {
+    if (err) {
+      res.status(500).send('Error al obtener los orientadores');
+      return;
+    }
+    res.json(results);
+  });
+});
+
+// --- API para Responsables ---
+app.get('/api/responsables', (req, res) => {
+  const sql = "SELECT * FROM responsables";
+  db.query(sql, (err, results) => {
+    if (err) {
+      res.status(500).send('Error al obtener los responsables');
+      return;
+    }
+    res.json(results);
+  });
+});
+
+// --- API para Testigos ---
+app.get('/api/testigos', (req, res) => {
+  const sql = "SELECT * FROM testigos";
+  db.query(sql, (err, results) => {
+    if (err) {
+      res.status(500).send('Error al obtener los testigos');
+      return;
+    }
+    res.json(results);
+  });
+});
+
+// --- API para Victimarios ---
+app.get('/api/victimarios', (req, res) => {
+  const sql = "SELECT * FROM victimarios";
+  db.query(sql, (err, results) => {
+    if (err) {
+      res.status(500).send('Error al obtener los victimarios');
+      return;
+    }
+    res.json(results);
+  });
+});
+
+// --- API para Victimas ---
+app.get('/api/victimas', (req, res) => {
+  const sql = "SELECT * FROM victimas";
+  db.query(sql, (err, results) => {
+    if (err) {
+      res.status(500).send('Error al obtener las víctimas');
+      return;
+    }
+    res.json(results);
+  });
+});
+
+// --- API para Reportes Detallados ---
+app.get('/api/reportes-detallados', (req, res) => {
+  const sql = `
+    SELECT 
+      r.id_reporte, r.fecha, r.hora, r.lugar, r.descripcion, r.id_orientador,
+      v.nombre AS nombre_victima, v.grado AS grado_victima, v.grupo AS grupo_victima,
+      vm.nombre AS nombre_victimario, vm.grado AS grado_victimario, vm.grupo AS grupo_victimario,
+      t.nombre AS nombre_testigo, t.grado AS grado_testigo, t.grupo AS grupo_testigo
+    FROM reportes r
+    LEFT JOIN victimas v ON r.id_victima = v.id_victima
+    LEFT JOIN victimarios vm ON r.id_victimario = vm.id_victimario
+    LEFT JOIN testigos t ON r.id_testigo = t.id_testigo
+  `;
+
+  db.query(sql, (err, results) => {
+    if (err) {
+      console.error("Error al obtener los reportes detallados:", err);
+      res.status(500).send('Error al obtener los reportes detallados');
+      return;
+    }
+    res.json(results);
+  });
 });
 
 

@@ -4,6 +4,7 @@ import Alumnos from './Alumnos'; // Importamos el nuevo componente
 import Reportes from './Reportes'; // Importamos el componente de Reportes
 import Salones from './Salones'; // Importamos el componente de Salones
 import Inicio from './Inicio'; // Importamos el nuevo componente de Inicio
+import DataTable from './DataTable'; // Importamos el nuevo componente genérico
 
 function Dashboard({ onLogout }) {
   // Estado para controlar la vista activa
@@ -12,6 +13,8 @@ function Dashboard({ onLogout }) {
   const [alumnos, setAlumnos] = useState([]);
   const [salones, setSalones] = useState([]);
   const [reportes, setReportes] = useState([]);
+  const [orientadores, setOrientadores] = useState([]);
+  const [responsables, setResponsables] = useState([]);
 
   // useEffect para cargar los datos desde la API cuando el componente se monta.
   useEffect(() => {
@@ -32,6 +35,10 @@ function Dashboard({ onLogout }) {
       .then(res => res.json())
       .then(data => setReportes(data))
       .catch(err => console.error("Error al cargar reportes:", err));
+
+    // Cargar nuevas secciones
+    fetch('http://localhost:3001/api/orientadores').then(res => res.json()).then(data => setOrientadores(data)).catch(err => console.error("Error al cargar orientadores:", err));
+    fetch('http://localhost:3001/api/responsables').then(res => res.json()).then(data => setResponsables(data)).catch(err => console.error("Error al cargar responsables:", err));
   }, []); // El array vacío asegura que esto se ejecute solo una vez.
 
   // Funciones para modificar los salones
@@ -79,13 +86,11 @@ function Dashboard({ onLogout }) {
           onDeleteReport={handleDeleteReport}
         />;
       case 'Salones':
-        // Pasamos la lista y las funciones como props al componente Salones
-        return <Salones 
-          salones={salones}
-          onAddSalon={handleAddSalon}
-          onDeleteSalon={handleDeleteSalon}
-          onUpdateSalon={handleUpdateSalon} // Pasamos la nueva función
-        />;
+        return <DataTable title="Gestión de Salones" data={salones} />;
+      case 'Orientadores':
+        return <DataTable title="Gestión de Orientadores" data={orientadores} />;
+      case 'Responsables':
+        return <DataTable title="Gestión de Responsables" data={responsables} />;
       case 'Inicio':
       default:
         // Ahora usamos el componente Inicio y le pasamos los datos
@@ -117,6 +122,12 @@ function Dashboard({ onLogout }) {
             </li>
             <li className={activeView === 'Salones' ? 'active' : ''}>
               <a href="#" onClick={() => setActiveView('Salones')}>Salones</a>
+            </li>
+            <li className={activeView === 'Orientadores' ? 'active' : ''}>
+              <a href="#" onClick={() => setActiveView('Orientadores')}>Orientadores</a>
+            </li>
+            <li className={activeView === 'Responsables' ? 'active' : ''}>
+              <a href="#" onClick={() => setActiveView('Responsables')}>Responsables</a>
             </li>
             {/* Añade aquí más elementos de menú en el futuro */}
             <li><a href="#" onClick={() => setActiveView('Ajustes')}>Ajustes</a></li>
