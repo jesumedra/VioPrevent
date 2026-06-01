@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import Login from './paginas/Login';
 import Dashboard from './paginas/Dasboard';
+import Cuestionario from './paginas/pagcuestionario'; // Ruta corregida
 
 function App() {
   // Estado para saber si el usuario ha iniciado sesión
@@ -20,11 +21,15 @@ function App() {
   return (
     <div className="App">
       {
-        // Renderizado condicional: si el usuario está logueado, muestra el Dashboard,
-        // si no, muestra el Login.
+        // Mostramos el cuestionario como página principal.
+        <Cuestionario />
+        
+        /*
+        // Lógica de login anterior, comentada por ahora.
         isLoggedIn 
           ? <Dashboard onLogout={handleLogout} /> 
           : <Login onLogin={handleLogin} />
+        */
       }
     </div>
   );

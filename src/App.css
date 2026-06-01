@@ -64,6 +64,116 @@
   box-shadow: var(--box-shadow-hover);
 }
 
+/* Estilos para el Cuestionario (Versión Mejorada) */
+.cuestionario-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 3rem auto; /* Más margen superior e inferior */
+  padding: 2.5rem; /* Un poco más de padding */
+  background-color: var(--background-white);
+  border-radius: 12px; /* Bordes más redondeados */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Sombra más pronunciada */
+  border: 1px solid var(--border-color-light);
+}
+
+.cuestionario-form h1 {
+  color: var(--primary-green-dark);
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 2rem; /* Título más grande */
+  font-weight: 700;
+}
+
+.cuestionario-form p {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.cuestionario-form fieldset {
+  border: none; /* Quitamos el borde del fieldset */
+  padding: 0;
+  margin-bottom: 2.5rem;
+}
+
+.cuestionario-form legend {
+  font-size: 1.4rem; /* Leyenda más grande */
+  font-weight: 600;
+  color: var(--primary-green);
+  padding: 0;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  padding-bottom: 0.5rem;
+}
+
+.cuestionario-form label {
+  display: block;
+  margin-bottom: 1.5rem;
+  font-weight: 600; /* Texto de la etiqueta más grueso */
+  color: var(--text-primary);
+}
+
+.cuestionario-form input[type="text"],
+.cuestionario-form input[type="date"],
+.cuestionario-form select,
+.cuestionario-form textarea {
+  width: 100%;
+  padding: 14px; /* Un poco más de padding */
+  margin-top: 0.5rem;
+  border: 1px solid var(--border-color-base);
+  border-radius: 8px; /* Bordes más redondeados */
+  font-size: 1rem;
+  box-sizing: border-box;
+  background-color: #f9fafb; /* Fondo sutil para los inputs */
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.cuestionario-form input:focus,
+.cuestionario-form select:focus,
+.cuestionario-form textarea:focus {
+  border-color: var(--primary-green);
+  box-shadow: var(--input-focus-shadow);
+  outline: none;
+  background-color: var(--background-white);
+}
+
+.cuestionario-form .checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  font-weight: 500; /* Hacemos el texto del checkbox un poco más ligero */
+}
+
+.cuestionario-form .checkbox-label input[type="checkbox"] {
+  width: 1.2em;
+  height: 1.2em;
+  margin: 0;
+  cursor: pointer;
+}
+
+.cuestionario-form button[type="submit"] {
+  width: 100%;
+  padding: 16px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 8px;
+}
+
+.cuestionario-form button[type="submit"]:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.cuestionario-form button[type="submit"]:disabled:hover {
+  background-color: #ccc;
+}
+
+
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
