@@ -1,38 +1,60 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../App.css';
-import AddSalonModal from '../componentes/AddSalonModal';
 
-function Salones({ salones, onAddSalon, onDeleteSalon, onUpdateSalon }) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingSalon, setEditingSalon] = useState(null);
+function Salones() {
+  const [salones, setSalones] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [nuevoGrupo, setNuevoGrupo] = useState({ grupo: '', alumnos: '' });
 
-  const handleEditClick = (salon) => {
-    setEditingSalon(salon);
-    setIsModalOpen(true);
+  useEffect(() => {
+    fetchSalones();
+  }, []);
+
+  const fetchSalones = () => {
+    fetch('http://localhost:3001/api/salones')
+      .then(response => response.json())
+      .then(data => setSalones(data))
+      .catch(error => console.error('Error al obtener los salones:', error));
   };
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setEditingSalon(null);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNuevoGrupo({ ...nuevoGrupo, [name]: value });
+  };
+
+  const handleGuardarGrupo = () => {
+    fetch('http://localhost:3001/api/salones', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ grupo: nuevoGrupo.grupo }),
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data.message);
+      setModalVisible(false);
+      setNuevoGrupo({ grupo: '', alumnos: '' }); // Limpiar el formulario
+      fetchSalones(); // Recargar la lista de salones
+    })
+    .catch(error => {
+      console.error('Error al guardar el nuevo grupo:', error);
+    });
   };
 
   return (
     <>
-      <div className="alumnos-container"> {/* Reutilizamos estilos */}
+      <div className="alumnos-container">
         <div className="alumnos-header">
           <h2>Gestión de Salones</h2>
-          <button className="add-student-button" onClick={() => { setEditingSalon(null); setIsModalOpen(true); }}>
-            + Añadir Salón
-          </button>
+          <button onClick={() => setModalVisible(true)} className="btn-primary">Añadir Grupo</button>
         </div>
         <table className="alumnos-table">
           <thead>
             <tr>
-              <th>ID Salón</th>
+              <th>Id</th>
               <th>Grupo</th>
-              <th>Profesor Titular</th>
-              <th>Nº de Alumnos</th>
-              <th>Acciones</th>
+              <th>Alumnos</th>
             </tr>
           </thead>
           <tbody>
@@ -40,37 +62,29 @@ function Salones({ salones, onAddSalon, onDeleteSalon, onUpdateSalon }) {
               <tr key={salon.id}>
                 <td>{salon.id}</td>
                 <td>{salon.grupo}</td>
-                <td>{salon.profesor}</td>
                 <td>{salon.alumnos}</td>
-                <td className="actions-cell">
-                  <button className="action-button view-button">Ver</button>
-                  <button
-                    className="action-button edit-button"
-                    onClick={() => handleEditClick(salon)}
-                  >
-                    Editar
-                  </button>
-                  <button
-                    className="action-button delete-button"
-                    onClick={() => onDeleteSalon(salon.id)}
-                  >
-                    Eliminar
-                  </button>
-                </td>
               </tr>
             ))}
           </tbody>
         </table>
-      </div>
 
-      {isModalOpen && (
-        <AddSalonModal
-          salonToEdit={editingSalon}
-          onClose={handleCloseModal}
-          onAddSalon={onAddSalon}
-          onUpdateSalon={onUpdateSalon}
-        />
-      )}
+        {modalVisible && (
+          <div className="modal">
+            <div className="modal-content">
+              <h2>Añadir Nuevo Grupo</h2>
+              <input
+                type="text"
+                name="grupo"
+                placeholder="Nombre del Grupo"
+                value={nuevoGrupo.grupo}
+                onChange={handleInputChange}
+              />
+              <button onClick={handleGuardarGrupo}>Guardar</button>
+              <button onClick={() => setModalVisible(false)}>Cancelar</button>
+            </div>
+          </div>
+        )}
+      </div>
     </>
   );
 }

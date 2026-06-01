@@ -134,24 +134,70 @@ app.delete('/api/alumnos/:grupoId/:alumnoId', (req, res) => {
 // GET: Obtener todos los salones (basado en las tablas existentes)
 app.get('/api/salones', (req, res) => {
   const sql = "SHOW TABLES LIKE 'grupo_%'";
-  db.query(sql, (err, results) => {
+  db.query(sql, (err, tables) => {
     if (err) {
-      res.status(500).send('Error al obtener la lista de grupos');
-      return;
+      return res.status(500).send('Error al obtener la lista de grupos');
     }
-    // Transforma la lista de nombres de tabla en el formato que el frontend espera.
-    const salones = results.map((row, index) => {
-      const tableName = Object.values(row)[0];
-      const grupoNumber = tableName.replace('grupo_', '');
-      return {
-        id: tableName, // Usamos el nombre de la tabla como ID único
-        grupo: grupoNumber,
-        alumnos: 'N/A',  // Necesitaríamos otra consulta para contar
-      };
+
+    if (tables.length === 0) {
+      return res.json([]);
+    }
+
+    const tableNames = tables.map(row => Object.values(row)[0]);
+
+    const countQueries = tableNames.map(tableName => {
+      return `SELECT '${tableName}' AS grupoId, COUNT(*) AS numAlumnos FROM \`${tableName}\``;
     });
-    res.json(salones);
+
+    const finalSql = countQueries.join(' UNION ALL ');
+
+    db.query(finalSql, (err, results) => {
+      if (err) {
+        return res.status(500).send('Error al contar los alumnos');
+      }
+      
+      const salones = results.map(row => ({
+          id: row.grupoId,
+          grupo: row.grupoId.replace('grupo_', ''),
+          alumnos: row.numAlumnos
+      }));
+
+      res.json(salones);
+    });
   });
 });
+
+// POST: Crear un nuevo salón (grupo)
+app.post('/api/salones', (req, res) => {
+  const { grupo } = req.body;
+
+  if (!grupo) {
+    return res.status(400).send('El nombre del grupo es requerido.');
+  }
+
+  // Limpiamos y formateamos el nombre del grupo para que sea un nombre de tabla válido
+  const nombreTabla = `grupo_${grupo.trim().replace(/\s+/g, '_')}`;
+
+  // Creamos la nueva tabla para el grupo
+  const createTableSql = `
+    CREATE TABLE IF NOT EXISTS \`${nombreTabla}\` (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      nombre VARCHAR(255) NOT NULL,
+      edad INT,
+      promedio DECIMAL(5, 2)
+      // Puedes añadir más campos aquí si lo necesitas
+    );
+  `;
+
+  db.query(createTableSql, (err, result) => {
+    if (err) {
+      console.error("Error al crear la tabla del grupo:", err);
+      return res.status(500).send('Error al crear el nuevo grupo.');
+    }
+    res.status(201).json({ message: `Grupo '${grupo}' creado exitosamente como tabla '${nombreTabla}'.` });
+  });
+});
+
 
 // --- API para Reportes ---
 // GET: Obtener todos los reportes

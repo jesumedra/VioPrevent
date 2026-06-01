@@ -86,7 +86,7 @@ function Dashboard({ onLogout }) {
           onDeleteReport={handleDeleteReport}
         />;
       case 'Salones':
-        return <DataTable title="Gestión de Salones" data={salones} />;
+        return <Salones />;
       case 'Orientadores':
         return <DataTable title="Gestión de Orientadores" data={orientadores} />;
       case 'Responsables':

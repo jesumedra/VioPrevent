@@ -315,7 +315,11 @@ CREATE TABLE `orientadores` (
 
 INSERT INTO `orientadores` (`id_orientador`, `nombre`, `apellido`, `telefono`, `correo`, `especialidad`) VALUES
 (1, 'Laura', 'Martinez', '5512345678', 'laura@vioprevent.com', 'Psicologia'),
-(2, 'Carlos', 'Hernandez', '5587654321', 'carlos@vioprevent.com', 'Trabajo Social');
+(2, 'Carlos', 'Hernandez', '5587654321', 'carlos@vioprevent.com', 'Trabajo Social'),
+(3, 'Ana', 'Gomez', '5511223344', 'ana@vioprevent.com', 'Psicopedagogía'),
+(4, 'Jorge', 'Perez', '5555667788', 'jorge@vioprevent.com', 'Terapia Familiar'),
+(5, 'Sofia', 'Ruiz', '5599887766', 'sofia@vioprevent.com', 'Psicologia Infantil'),
+(6, 'Miguel', 'Angel', '5544332211', 'miguel@vioprevent.com', 'Consejería Educativa');
 
 -- --------------------------------------------------------
 

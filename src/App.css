@@ -46,6 +46,24 @@
   --button-secondary-border: #ccc;
 }
 
+/* Estilo de Botón Principal */
+.btn-primary {
+  background-color: var(--primary-green);
+  color: var(--text-light);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-green-dark);
+  box-shadow: var(--box-shadow-hover);
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -247,6 +265,85 @@ body {
   padding: 25px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Estilos para el Modal */
+.modal {
+  position: fixed; /* Posición fija para cubrir toda la pantalla */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--modal-overlay-bg); /* Fondo oscuro semitransparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+}
+
+.modal-content {
+  background-color: var(--background-white);
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: var(--box-shadow-base);
+  width: 90%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Espacio entre los elementos del formulario */
+}
+
+.modal-content h2 {
+  margin: 0 0 15px 0;
+  font-size: 22px;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border-color-base);
+  border-radius: 6px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.modal-content input:focus {
+  border-color: var(--primary-green);
+  box-shadow: var(--input-focus-shadow);
+  outline: none;
+}
+
+.modal-content button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+/* Botón principal (Guardar) */
+.modal-content button:first-of-type {
+  background-color: var(--primary-green);
+  color: var(--text-light);
+}
+
+.modal-content button:first-of-type:hover {
+  background-color: var(--primary-green-dark);
+  box-shadow: var(--box-shadow-hover);
+}
+
+/* Botón secundario (Cancelar) */
+.modal-content button:last-of-type {
+  background-color: var(--button-secondary-bg);
+  color: var(--text-secondary);
+  border: 1px solid var(--button-secondary-border);
+}
+
+.modal-content button:last-of-type:hover {
+  background-color: #e0e0e0; /* Un gris un poco más oscuro para el hover */
 }
 
 .alumnos-header {
